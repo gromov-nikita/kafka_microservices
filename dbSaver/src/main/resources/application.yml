@@ -1,0 +1,32 @@
+spring:
+  application:
+    name: dbSaver
+  datasource:
+    url: jdbc:postgresql://localhost:5432/kafka
+    username: root
+    password: 1234
+  jpa:
+    hibernate:
+      ddl-auto: update
+  kafka:
+    bootstrap-servers: localhost:9092
+    consumer:
+      group-id: db-saver-group
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      auto-offset-reset: earliest
+      enable-auto-commit: false
+    listener:
+      ack-mode: record
+    topic-name:
+      employee: employee
+      assignment: assignment
+      project: project
+  scheduler:
+    reader:
+      csv-interval: 300000
+grpc:
+  client:
+    notification-service:
+      address: 'static://localhost:9091'
+      negotiationType: plaintext
