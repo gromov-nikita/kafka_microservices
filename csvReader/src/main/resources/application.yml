@@ -11,7 +11,7 @@ spring:
       assignment: assignment
       project: project
 csv:
-  path: D:\internship\kafka
+  path: ${CSV_PATH}
   file-name:
     employee: employee.csv
     assignment: assignment.csv
