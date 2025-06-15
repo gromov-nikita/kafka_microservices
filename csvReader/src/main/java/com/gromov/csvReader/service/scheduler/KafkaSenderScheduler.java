@@ -3,7 +3,7 @@ package com.gromov.csvReader.service.scheduler;
 import com.gromov.csvReader.dto.Assignment;
 import com.gromov.csvReader.dto.Employee;
 import com.gromov.csvReader.dto.Project;
-import com.gromov.csvReader.service.csv.CsvParser;
+import com.gromov.csvReader.service.parser.csv.CsvParser;
 import com.gromov.csvReader.service.json.JsonSerializer;
 import com.gromov.csvReader.service.kafka.KafkaProducerService;
 import lombok.RequiredArgsConstructor;

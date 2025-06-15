@@ -1,6 +1,7 @@
-package com.gromov.csvReader.service.csv;
+package com.gromov.csvReader.service.parser.csv;
 
 import com.gromov.csvReader.exception.CsvFileException;
+import com.gromov.csvReader.service.parser.Parser;
 import com.opencsv.bean.CsvToBean;
 import com.opencsv.bean.CsvToBeanBuilder;
 import org.springframework.beans.factory.annotation.Value;
@@ -14,13 +15,14 @@ import java.nio.file.StandardOpenOption;
 import java.util.List;
 
 @Component
-public class CsvParser {
+public class CsvParser implements Parser {
 
     @Value("${csv.path}")
     private String path;
 
     private static final String exceptionMessage = "Не удалось прочитать CSV-файл";
 
+    @Override
     public <T> List<T> parse(String fileName,Class<T> clazz) {
         String fullPath = path+"\\"+fileName;
         try(FileReader reader = new FileReader(fullPath)) {
