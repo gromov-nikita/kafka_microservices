@@ -15,11 +15,11 @@ public class GrpcNotificationService {
 
     private final GrpcNotificationClient grpcNotificationClient;
 
-    public void notValidNotify() {
+    public void notValidNotify(String message) {
         System.out.println("Notification sent, success: " +
                 grpcNotificationClient.notifyEvent(EventRequest.newBuilder()
                         .setEventId(UUID.randomUUID().toString())
-                        .setMessage("Invalid assignment DTO received")
+                        .setMessage(message)
                         .setTimestamp(System.currentTimeMillis())
                         .build()).getSuccess()
         );
