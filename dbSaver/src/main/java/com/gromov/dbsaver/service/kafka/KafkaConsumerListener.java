@@ -31,7 +31,7 @@ public class KafkaConsumerListener {
     private final GrpcNotificationService grpcNotificationService;
     private final JsonParser jsonParser;
 
-    private String assignmentNotValidMessage = "Start date must be before end date.";
+    private static final String assignmentNotValidMessage = "Start date must be before end date.";
 
     @KafkaListener(topics = "${spring.kafka.topic-name.employee}", groupId = "${spring.kafka.consumer.group-id}")
     public void consumeEmployee(String message) {
