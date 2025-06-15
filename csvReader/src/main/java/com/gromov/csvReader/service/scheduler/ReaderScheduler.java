@@ -16,21 +16,31 @@ import java.util.List;
 @Component
 @RequiredArgsConstructor
 public class ReaderScheduler {
+
     @Value("${csv.file-name.employee}")
     private String employeeFileName;
+
     @Value("${csv.file-name.assignment}")
     private String assignmentFileName;
+
     @Value("${csv.file-name.project}")
     private String projectFileName;
+
     @Value("${spring.kafka.topic-name.employee}")
     private String employeeTopicName;
+
     @Value("${spring.kafka.topic-name.assignment}")
     private String assignmentTopicName;
+
     @Value("${spring.kafka.topic-name.project}")
     private String projectTopicName;
+
     private final CsvParser csvParser;
+
     private final JsonSerializer jsonSerializer;
+
     private final KafkaProducerService kafkaProducerService;
+
     @Scheduled(fixedDelayString = "${scheduler.reader.csv-interval}")
     public void read() {
         handleEmployeeCsv();
