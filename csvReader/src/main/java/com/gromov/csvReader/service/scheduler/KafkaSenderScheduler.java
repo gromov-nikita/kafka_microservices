@@ -15,7 +15,7 @@ import java.util.List;
 
 @Component
 @RequiredArgsConstructor
-public class ReaderScheduler {
+public class KafkaSenderScheduler {
 
     @Value("${csv.file-name.employee}")
     private String employeeFileName;
