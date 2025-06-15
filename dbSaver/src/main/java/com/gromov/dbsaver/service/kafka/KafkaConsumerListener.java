@@ -32,6 +32,7 @@ public class KafkaConsumerListener {
     private final JsonParser jsonParser;
 
     private static final String assignmentNotValidMessage = "Start date must be before end date.";
+    private static final String logErrorMessage = "Exception caught: ";
 
     @KafkaListener(topics = "${spring.kafka.topic-name.employee}", groupId = "${spring.kafka.consumer.group-id}")
     public void consumeEmployee(String message) {
@@ -40,7 +41,7 @@ public class KafkaConsumerListener {
         }
         catch (Exception e) {
             grpcNotificationService.notValidNotify(e.getMessage());
-            log.error("Exception caught: ", e);
+            log.error(logErrorMessage, e);
         }
     }
     @KafkaListener(topics = "${spring.kafka.topic-name.assignment}", groupId = "${spring.kafka.consumer.group-id}")
