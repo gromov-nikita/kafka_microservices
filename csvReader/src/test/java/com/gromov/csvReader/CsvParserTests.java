@@ -34,7 +34,7 @@ public class CsvParserTests {
 
     @BeforeEach
     void setup() throws IOException {
-        Path tempDir = Files.createTempDirectory(tempDirectoryName);
+        tempDir = Files.createTempDirectory(tempDirectoryName);
         parser.setPath(tempDir.toString());
         Path csvFile = tempDir.resolve(fileName);
         Files.writeString(csvFile, csvEmployee);
