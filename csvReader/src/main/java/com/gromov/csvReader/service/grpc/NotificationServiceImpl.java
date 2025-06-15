@@ -13,13 +13,14 @@ import org.slf4j.LoggerFactory;
 @Slf4j
 public class NotificationServiceImpl extends NotificationServiceGrpc.NotificationServiceImplBase {
 
+    private static final String responseMessage = "Event processed successfully. EventId:";
 
     @Override
     public void notifyEvent(EventRequest request, StreamObserver<EventResponse> responseObserver) {
         log.warn("Received event: eventId={}, message={}",request.getEventId(),request.getMessage());
         EventResponse response = EventResponse.newBuilder()
                 .setSuccess(true)
-                .setDetails("Event processed successfully")
+                .setDetails(responseMessage + request.getEventId())
                 .build();
         responseObserver.onNext(response);
         responseObserver.onCompleted();
