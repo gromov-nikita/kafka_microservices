@@ -4,6 +4,7 @@ import com.gromov.csvReader.exception.CsvFileException;
 import com.gromov.csvReader.service.parser.Parser;
 import com.opencsv.bean.CsvToBean;
 import com.opencsv.bean.CsvToBeanBuilder;
+import lombok.Setter;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
@@ -18,6 +19,7 @@ import java.util.List;
 public class CsvParser implements Parser {
 
     @Value("${csv.path}")
+    @Setter
     private String path;
 
     private static final String exceptionMessage = "Не удалось прочитать CSV-файл";
