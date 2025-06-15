@@ -5,11 +5,11 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.stereotype.Service;
 
 @Service
-public class JsonParser {
+public class JsonSerializer {
 
     private static final ObjectMapper objectMapper = new ObjectMapper();
 
-    public <T> String getJson(T object) {
+    public <T> String serialize(T object) {
         try {
             return objectMapper.writeValueAsString(object);
         } catch (JsonProcessingException e) {

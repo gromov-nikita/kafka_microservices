@@ -1,12 +1,10 @@
 package com.gromov.csvReader.service.scheduler;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.gromov.csvReader.dto.Assignment;
 import com.gromov.csvReader.dto.Employee;
 import com.gromov.csvReader.dto.Project;
 import com.gromov.csvReader.service.csv.CsvParser;
-import com.gromov.csvReader.service.json.JsonParser;
+import com.gromov.csvReader.service.json.JsonSerializer;
 import com.gromov.csvReader.service.kafka.KafkaProducerService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
@@ -31,7 +29,7 @@ public class ReaderScheduler {
     @Value("${spring.kafka.topic-name.project}")
     private String projectTopicName;
     private final CsvParser csvParser;
-    private final JsonParser jsonParser;
+    private final JsonSerializer jsonSerializer;
     private final KafkaProducerService kafkaProducerService;
     @Scheduled(fixedDelayString = "${scheduler.reader.csv-interval}")
     public void read() {
@@ -49,6 +47,6 @@ public class ReaderScheduler {
         send(projectTopicName,csvParser.parse(projectFileName, Project.class));
     }
     private <T> void send(String fileName,List<T> group) {
-        if(!group.isEmpty()) kafkaProducerService.send(fileName,jsonParser.getJson(group));
+        if(!group.isEmpty()) kafkaProducerService.send(fileName, jsonSerializer.serialize(group));
     }
 }
