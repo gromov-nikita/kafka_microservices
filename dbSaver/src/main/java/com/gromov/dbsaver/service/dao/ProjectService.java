@@ -19,6 +19,6 @@ public class ProjectService {
         return projectRepo.saveAll(projectGroup);
     }
     public Project findById(Integer id) {
-        return projectRepo.findById(id).orElse(null);
+        return projectRepo.findById(id).orElseThrow();
     }
 }

@@ -18,6 +18,6 @@ public class EmployeeService {
         return employeeRepo.saveAll(employeeGroup);
     }
     public Employee findById(Integer id) {
-        return employeeRepo.findById(id).orElse(null);
+        return employeeRepo.findById(id).orElseThrow();
     }
 }
