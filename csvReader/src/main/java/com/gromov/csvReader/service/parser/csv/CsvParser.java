@@ -1,6 +1,6 @@
 package com.gromov.csvReader.service.parser.csv;
 
-import com.gromov.csvReader.exception.CsvFileException;
+import com.gromov.csvReader.exception.CsvReadingException;
 import com.gromov.csvReader.service.parser.Parser;
 import com.opencsv.bean.CsvToBean;
 import com.opencsv.bean.CsvToBeanBuilder;
@@ -32,7 +32,7 @@ public class CsvParser implements Parser {
             Files.newBufferedWriter(Paths.get(fullPath), StandardOpenOption.TRUNCATE_EXISTING).close();
             return parse;
         } catch (IOException e) {
-            throw new CsvFileException(exceptionMessage,e);
+            throw new CsvReadingException(exceptionMessage,e);
         }
     }
     private <T> CsvToBean<T> getCsvToBean(FileReader reader, Class<T> clazz) {
