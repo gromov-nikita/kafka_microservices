@@ -1,0 +1,9 @@
+databaseChangeLog:
+  - include:
+      file: classpath:/db/changelog/v1_0/employee/employee-changes.yml
+  - include:
+      file: classpath:/db/changelog/v1_0/project/domain-enum.yml
+  - include:
+      file: classpath:/db/changelog/v1_0/project/project-changes.yml
+  - include:
+      file: classpath:/db/changelog//v1_0/assignment/assignment-changes.yml
