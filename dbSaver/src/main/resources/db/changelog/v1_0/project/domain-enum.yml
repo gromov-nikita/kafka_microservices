@@ -1,0 +1,17 @@
+databaseChangeLog:
+  - changeSet:
+      id: domain-enum-1
+      author: gromov-nikita
+      changes:
+        - sql:
+            sql: |
+              CREATE TYPE domain_enum AS ENUM (
+                'BUSINESS',
+                'TECHNICAL',
+                'SUBJECT_AREA',
+                'USER',
+                'MANAGEMENT',
+                'LEGAL',
+                'DATA',
+                'SECURITY'
+              );

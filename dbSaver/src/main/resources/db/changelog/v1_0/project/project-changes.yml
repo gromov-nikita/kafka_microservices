@@ -24,6 +24,6 @@ databaseChangeLog:
                     nullable: true
               - column:
                   name: domain
-                  type: varchar(15)
+                  type: domain_enum
                   constraints:
                     nullable: false
