@@ -1,0 +1,48 @@
+databaseChangeLog:
+  - changeSet:
+      id: assignment-1
+      author: gromov-nikita
+      changes:
+        - createTable:
+            tableName: assignment
+            columns:
+              - column:
+                  name: id
+                  type: int
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: start_date
+                  type: date
+                  constraints:
+                    nullable: false
+              - column:
+                  name: end_date
+                  type: date
+                  constraints:
+                    nullable: false
+              - column:
+                  name: employee_id
+                  type: int
+                  constraints:
+                    nullable: false
+              - column:
+                  name: project_id
+                  type: int
+                  constraints:
+                    nullable: false
+        - addForeignKeyConstraint:
+            baseTableName: assignment
+            baseColumnNames: employee_id
+            constraintName: fk_assignment_employee
+            referencedTableName: employee
+            referencedColumnNames: id
+        - addForeignKeyConstraint:
+            baseTableName: assignment
+            baseColumnNames: project_id
+            constraintName: fk_assignment_project
+            referencedTableName: project
+            referencedColumnNames: id
+
