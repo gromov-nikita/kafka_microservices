@@ -31,8 +31,8 @@ public class KafkaConsumerListener {
     private final GrpcNotificationService grpcNotificationService;
     private final JsonParser jsonParser;
 
-    private static final String assignmentNotValidMessage = "Start date must be before end date.";
-    private static final String logErrorMessage = "Exception caught: ";
+    private static final String ASSIGNMENT_NOT_VALID_MESSAGE = "Start date must be before end date.";
+    private static final String LOG_ERROR_MESSAGE = "Exception caught: ";
 
     @KafkaListener(topics = "${spring.kafka.topic-name.employee}", groupId = "${spring.kafka.consumer.group-id}")
     public void consumeEmployee(String message) {
@@ -41,7 +41,7 @@ public class KafkaConsumerListener {
         }
         catch (Exception e) {
             grpcNotificationService.notValidNotify(e.getMessage());
-            log.error(logErrorMessage, e);
+            log.error(LOG_ERROR_MESSAGE, e);
         }
     }
     @KafkaListener(topics = "${spring.kafka.topic-name.assignment}", groupId = "${spring.kafka.consumer.group-id}")
@@ -49,7 +49,7 @@ public class KafkaConsumerListener {
     public void consumeAssignment(String message) {
         List<AssignmentDto> dtoGroup = jsonParser.parseJson(message, AssignmentDto.class);
         if(assignmentDtoValidator.isValid(dtoGroup)) assignmentService.saveAll(assignmentMapper.toEntity(dtoGroup));
-        else grpcNotificationService.notValidNotify(assignmentNotValidMessage);
+        else grpcNotificationService.notValidNotify(ASSIGNMENT_NOT_VALID_MESSAGE);
     }
     @KafkaListener(topics = "${spring.kafka.topic-name.project}", groupId = "${spring.kafka.consumer.group-id}")
     public void consumeProject(String message) {
