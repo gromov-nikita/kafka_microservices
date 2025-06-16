@@ -17,9 +17,9 @@ public class KafkaProducerTest {
 
     private KafkaProducerService kafkaProducerService;
 
-    private static final String topic = "my-topic";
+    private static final String TOPIC = "my-topic";
 
-    private static final String message = "test-message";
+    private static final String MESSAGE = "test-message";
 
     @BeforeEach
     void setUp() {
@@ -29,8 +29,8 @@ public class KafkaProducerTest {
     @Test
     void testSendCallsKafkaTemplate() {
 
-        kafkaProducerService.send(topic, message);
+        kafkaProducerService.send(TOPIC, MESSAGE);
 
-        verify(kafkaTemplate).send(topic, message);
+        verify(kafkaTemplate).send(TOPIC, MESSAGE);
     }
 }

@@ -22,7 +22,7 @@ public class CsvParser implements Parser {
     @Setter
     private String path;
 
-    private static final String exceptionMessage = "Не удалось прочитать CSV-файл";
+    private static final String EXCEPTION_MESSAGE = "Не удалось прочитать CSV-файл";
 
     @Override
     public <T> List<T> parse(String fileName,Class<T> clazz) {
@@ -32,7 +32,7 @@ public class CsvParser implements Parser {
             Files.newBufferedWriter(Paths.get(fullPath), StandardOpenOption.TRUNCATE_EXISTING).close();
             return parse;
         } catch (IOException e) {
-            throw new CsvReadingException(exceptionMessage,e);
+            throw new CsvReadingException(EXCEPTION_MESSAGE,e);
         }
     }
     private <T> CsvToBean<T> getCsvToBean(FileReader reader, Class<T> clazz) {

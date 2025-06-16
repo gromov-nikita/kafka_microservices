@@ -20,24 +20,24 @@ public class CsvParserTests {
 
     private Path tempDir;
 
-    private static final String errorMessage = "Failed to delete ";
+    private static final String ERROR_MESSAGE = "Failed to delete ";
 
-    private static final String fileName = "test.csv";
+    private static final String FILE_NAME = "test.csv";
 
-    private static final String csvEmployee = "id,name,mail,startWorkDate\n" +
+    private static final String CSV_EMPLOYEE = "id,name,mail,startWorkDate\n" +
             ",John Doe,john.doe@example.com,01-03-2020\n" +
             ",Jane Smith,jane.smith@example.com,12/05/2021\n" +
             ",Michael Brown,michael.brown@example.com,25.07.2019\n";
 
-    private static final String tempDirectoryName = "csvTest";
+    private static final String TEMP_DIRECTORY_NAME = "csvTest";
 
 
     @BeforeEach
     void setup() throws IOException {
-        tempDir = Files.createTempDirectory(tempDirectoryName);
+        tempDir = Files.createTempDirectory(TEMP_DIRECTORY_NAME);
         parser.setPath(tempDir.toString());
-        Path csvFile = tempDir.resolve(fileName);
-        Files.writeString(csvFile, csvEmployee);
+        Path csvFile = tempDir.resolve(FILE_NAME);
+        Files.writeString(csvFile, CSV_EMPLOYEE);
     }
     @AfterEach
     void cleanup() throws IOException {
@@ -46,7 +46,7 @@ public class CsvParserTests {
                     .map(Path::toFile)
                     .forEach(file -> {
                         if (!file.delete()) {
-                            System.err.println(errorMessage + file);
+                            System.err.println(ERROR_MESSAGE + file);
                         }
                     });
         }
@@ -54,7 +54,7 @@ public class CsvParserTests {
 
     @Test
     public void parseEmployeeTest() {
-        List<Employee> records = parser.parse(fileName, Employee.class);
+        List<Employee> records = parser.parse(FILE_NAME, Employee.class);
 
         assertEquals(3, records.size());
 
