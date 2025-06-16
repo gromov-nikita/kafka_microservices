@@ -19,7 +19,7 @@ public class Employee {
     private Integer id;
     @NotBlank(message = "Name is mandatory")
     @Pattern(regexp = "^[\\p{L} '-]+$", message = "Name must contain only letters, spaces, apostrophes or hyphens")
-    @Size(max = 30, message = "Name must be at most 100 characters")
+    @Size(max = 30, message = "Name must be at most 30 characters")
     private String name;
     private String mail;
     @JsonDeserialize(using = LocalDateJsonDeserializer.class)
