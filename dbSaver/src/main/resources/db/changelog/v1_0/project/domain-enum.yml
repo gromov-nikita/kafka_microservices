@@ -5,7 +5,7 @@ databaseChangeLog:
       changes:
         - sql:
             sql: |
-              CREATE TYPE domain_enum AS ENUM (
+              CREATE TYPE domain AS ENUM (
                 'BUSINESS',
                 'TECHNICAL',
                 'SUBJECT_AREA',
