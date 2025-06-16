@@ -57,6 +57,8 @@ public class KafkaSenderScheduler {
         send(projectTopicName,csvParser.parse(projectFileName, Project.class));
     }
     private <T> void send(String fileName,List<T> group) {
-        if(!group.isEmpty()) kafkaProducerService.send(fileName, jsonSerializer.serialize(group));
+        if(!group.isEmpty()) {
+            kafkaProducerService.send(fileName, jsonSerializer.serialize(group));
+        }
     }
 }
