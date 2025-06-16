@@ -15,7 +15,7 @@ public class NotificationServiceImpl extends NotificationServiceGrpc.Notificatio
 
     @Override
     public void notifyEvent(EventRequest request, StreamObserver<EventResponse> responseObserver) {
-        log.warn("Received event: eventId={}, message={}",request.getEventId(),request.getMessage());
+        log.info("Received event: eventId={}, message={}",request.getEventId(),request.getMessage());
         EventResponse response = EventResponse.newBuilder()
                 .setSuccess(true)
                 .setDetails(RESPONSE_MESSAGE + request.getEventId())
