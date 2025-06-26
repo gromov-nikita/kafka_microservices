@@ -1,4 +1,4 @@
-package com.gromov.dbsaver.dao;
+package com.gromov.dbsaver.dao.hibernate;
 
 import com.gromov.dbsaver.entity.Assignment;
 import org.springframework.data.jpa.repository.JpaRepository;

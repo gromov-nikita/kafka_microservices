@@ -1,7 +1,6 @@
 package com.gromov.dbsaver.service.dao;
 
-import com.gromov.dbsaver.dao.ProjectRepo;
-import com.gromov.dbsaver.entity.Employee;
+import com.gromov.dbsaver.dao.hibernate.ProjectRepo;
 import com.gromov.dbsaver.entity.Project;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
