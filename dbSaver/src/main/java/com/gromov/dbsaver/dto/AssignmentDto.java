@@ -12,7 +12,6 @@ import java.time.LocalDate;
 
 public record AssignmentDto (
         Integer id,
-        String fileName,
         Integer employeeId,
         Integer projectId,
         @JsonDeserialize(using = LocalDateJsonDeserializer.class) LocalDate startDate,
