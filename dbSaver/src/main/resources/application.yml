@@ -2,9 +2,11 @@ spring:
   application:
     name: dbSaver
   datasource:
-    url: jdbc:postgresql://localhost:5432/kafka
-    username: root
-    password: 1234
+    url: ${DB_URL}
+    username: ${DB_USERNAME}
+    password: ${DB_PASSWORD}
+  jooq:
+    sql-dialect: POSTGRES
   jpa:
     hibernate:
       ddl-auto: validate
