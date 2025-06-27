@@ -28,7 +28,9 @@ public class JooqGenerator implements CommandLineRunner {
     @Value("${spring.datasource.password}")
     private String password;
 
-    private static final String JDBC_DRIVER = "org.postgresql.Driver";
+    @Value("${spring.datasource.driver-class-name}")
+    private String JDBC_DRIVER;
+
     private static final String DATABASE_NAME = "org.jooq.meta.postgres.PostgresDatabase";
     private static final String INPUT_SCHEMA = "public";
     private static final String INCLUDES = ".*";
