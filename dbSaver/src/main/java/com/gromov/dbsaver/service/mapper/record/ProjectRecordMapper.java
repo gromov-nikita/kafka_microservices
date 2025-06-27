@@ -19,12 +19,12 @@ public class ProjectRecordMapper {
     private final DSLContext dsl;
 
     public ProjectRecord toRecord(ProjectDto dto) {
-        return dsl.newRecord(PROJECT)
-                .with(PROJECT.ID, dto.id())
-                .with(PROJECT.NAME, dto.name())
-                .with(PROJECT.DESCRIPTION, dto.description())
-                .with(PROJECT.DOMAIN, Domain.lookupLiteral(dto.domain()));
-
+        return new ProjectRecord(
+                dto.id(),
+                dto.name(),
+                dto.description(),
+                Domain.lookupLiteral(dto.domain())
+        );
     }
     public List<ProjectRecord> toRecord(List<ProjectDto> dto) {
         return StreamEx.of(dto).map(this::toRecord).toList();

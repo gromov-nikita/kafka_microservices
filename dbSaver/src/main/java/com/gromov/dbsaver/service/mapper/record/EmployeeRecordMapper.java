@@ -18,11 +18,12 @@ public class EmployeeRecordMapper {
     private final DSLContext dsl;
 
     public EmployeeRecord toRecord(EmployeeDto dto) {
-        return dsl.newRecord(EMPLOYEE)
-                .with(EMPLOYEE.ID, dto.id())
-                .with(EMPLOYEE.NAME, dto.name())
-                .with(EMPLOYEE.MAIL, dto.mail())
-                .with(EMPLOYEE.START_WORK_DATE, dto.startWorkDate());
+        return new EmployeeRecord(
+                dto.id(),
+                dto.name(),
+                dto.mail(),
+                dto.startWorkDate()
+        );
 
     }
     public List<EmployeeRecord> toRecord(List<EmployeeDto> dto) {

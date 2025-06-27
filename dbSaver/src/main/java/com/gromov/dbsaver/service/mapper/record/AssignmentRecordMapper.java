@@ -18,13 +18,13 @@ public class AssignmentRecordMapper {
     private final DSLContext dsl;
 
     public AssignmentRecord toRecord(AssignmentDto dto) {
-        return dsl.newRecord(ASSIGNMENT)
-                .with(ASSIGNMENT.ID, dto.id())
-                .with(ASSIGNMENT.START_DATE, dto.startDate())
-                .with(ASSIGNMENT.END_DATE, dto.endDate())
-                .with(ASSIGNMENT.EMPLOYEE_ID, dto.employeeId())
-                .with(ASSIGNMENT.PROJECT_ID, dto.projectId());
-
+        return new AssignmentRecord(
+                dto.id(),
+                dto.startDate(),
+                dto.endDate(),
+                dto.employeeId(),
+                dto.projectId()
+        );
     }
     public List<AssignmentRecord> toRecord(List<AssignmentDto> dto) {
         return StreamEx.of(dto).map(this::toRecord).toList();
