@@ -9,14 +9,17 @@ import java.util.Objects;
 
 @Component
 public class AssignmentDtoValidator {
+
     public boolean isValid(List<AssignmentDto> assignmentDtoGroup) {
-        if(StreamEx.of(assignmentDtoGroup).allMatch(this::isValid)) return true;
-        else return false;
+       return StreamEx.of(assignmentDtoGroup).allMatch(this::isValid);
     }
+
     public boolean isValid(AssignmentDto assignmentDto) {
         return checkStartEndDate(assignmentDto);
     }
+
     public boolean checkStartEndDate(AssignmentDto assignmentDto) {
         return assignmentDto.startDate().isBefore(assignmentDto.endDate());
     }
+
 }
