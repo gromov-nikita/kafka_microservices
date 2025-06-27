@@ -15,7 +15,7 @@ public class AssignmentRecordService {
 
 
     public void saveAll(List<AssignmentRecord> assignmentRecordGroup) {
-        assignmentJooqRepo.saveAll(assignmentRecordGroup);
+        assignmentJooqRepo.saveOrUpdate(assignmentRecordGroup);
     }
 
 }

@@ -1,6 +1,5 @@
 package com.gromov.dbsaver.service.dao.record;
 
-import com.example.jooq.generated.tables.records.AssignmentRecord;
 import com.example.jooq.generated.tables.records.EmployeeRecord;
 import com.gromov.dbsaver.dao.jooq.EmployeeJooqRepo;
 import lombok.RequiredArgsConstructor;
@@ -16,7 +15,7 @@ public class EmployeeRecordService {
 
 
     public void saveAll(List<EmployeeRecord> employeeRecordGroup) {
-        employeeJooqRepo.saveAll(employeeRecordGroup);
+        employeeJooqRepo.saveOrUpdate(employeeRecordGroup);
     }
 
 }

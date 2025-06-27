@@ -4,8 +4,8 @@ import com.example.jooq.generated.tables.records.AssignmentRecord;
 import lombok.RequiredArgsConstructor;
 import one.util.streamex.StreamEx;
 import org.jooq.DSLContext;
-import org.jooq.InsertOnDuplicateSetMoreStep;
 import org.jooq.InsertSetMoreStep;
+import org.jooq.UpdateConditionStep;
 import org.springframework.stereotype.Repository;
 import static com.example.jooq.generated.tables.Assignment.ASSIGNMENT;
 
@@ -19,38 +19,24 @@ public class AssignmentJooqRepo {
 
     private final DSLContext dsl;
 
-    public void saveAll(List<AssignmentRecord> recordGroup) {
+    public void saveOrUpdate(List<AssignmentRecord> recordGroup) {
         dsl.batch(StreamEx.of(recordGroup).map(
-                record -> Objects.isNull(record.getId()) ? saveAllWithoutId(record) : saveAllWithId(record)
+                record -> Objects.isNull(record.getId()) ? insert(record) : update(record)
         ).toList()).execute();
     }
-    private InsertSetMoreStep<AssignmentRecord> saveAllWithoutId(AssignmentRecord record) {
+    private InsertSetMoreStep<AssignmentRecord> insert(AssignmentRecord record) {
         return dsl.insertInto(ASSIGNMENT)
                 .set(ASSIGNMENT.START_DATE, record.getStartDate())
                 .set(ASSIGNMENT.END_DATE, record.getEndDate())
                 .set(ASSIGNMENT.EMPLOYEE_ID, record.getEmployeeId())
                 .set(ASSIGNMENT.PROJECT_ID, record.getProjectId());
     }
-    private InsertOnDuplicateSetMoreStep<AssignmentRecord> saveAllWithId(AssignmentRecord record) {
-        return dsl.insertInto(ASSIGNMENT)
+    private UpdateConditionStep<AssignmentRecord> update(AssignmentRecord record) {
+        return dsl.update(ASSIGNMENT)
                 .set(ASSIGNMENT.START_DATE, record.getStartDate())
                 .set(ASSIGNMENT.END_DATE, record.getEndDate())
                 .set(ASSIGNMENT.EMPLOYEE_ID, record.getEmployeeId())
                 .set(ASSIGNMENT.PROJECT_ID, record.getProjectId())
-                .onConflict(ASSIGNMENT.ID).doUpdate()
-                .set(ASSIGNMENT.START_DATE, record.getStartDate())
-                .set(ASSIGNMENT.END_DATE, record.getEndDate())
-                .set(ASSIGNMENT.EMPLOYEE_ID, record.getEmployeeId())
-                .set(ASSIGNMENT.PROJECT_ID, record.getProjectId());
+                .where(ASSIGNMENT.ID.eq(record.getId()));
     }
-    private InsertSetMoreStep<AssignmentRecord> handleNullId(Integer id, InsertSetMoreStep<AssignmentRecord> insert) {
-        if(Objects.nonNull(id)) {
-            insert.set(ASSIGNMENT.ID, id);
-        }
-        return insert;
-    }
-
-
-
-
 }
