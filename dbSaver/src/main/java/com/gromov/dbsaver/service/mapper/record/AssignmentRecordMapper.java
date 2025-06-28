@@ -15,8 +15,6 @@ import static com.example.jooq.generated.tables.Assignment.ASSIGNMENT;
 @RequiredArgsConstructor
 public class AssignmentRecordMapper {
 
-    private final DSLContext dsl;
-
     public AssignmentRecord toRecord(AssignmentDto dto) {
         return new AssignmentRecord(
                 dto.id(),

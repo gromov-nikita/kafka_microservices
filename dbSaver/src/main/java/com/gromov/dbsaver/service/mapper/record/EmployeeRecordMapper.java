@@ -15,8 +15,6 @@ import static com.example.jooq.generated.tables.Employee.EMPLOYEE;
 @RequiredArgsConstructor
 public class EmployeeRecordMapper {
 
-    private final DSLContext dsl;
-
     public EmployeeRecord toRecord(EmployeeDto dto) {
         return new EmployeeRecord(
                 dto.id(),

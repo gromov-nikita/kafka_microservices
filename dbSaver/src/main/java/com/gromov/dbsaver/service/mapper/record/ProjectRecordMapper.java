@@ -16,8 +16,6 @@ import static com.example.jooq.generated.tables.Project.PROJECT;
 @RequiredArgsConstructor
 public class ProjectRecordMapper {
 
-    private final DSLContext dsl;
-
     public ProjectRecord toRecord(ProjectDto dto) {
         return new ProjectRecord(
                 dto.id(),
