@@ -21,22 +21,8 @@ public class ProjectJooqRepo {
 
     public void saveOrUpdate(List<ProjectRecord> recordGroup) {
         dsl.batch(StreamEx.of(recordGroup).map(
-                record -> Objects.isNull(record.getId()) ? insert(record) : update(record)
+                record -> dsl.insertInto(PROJECT).set(record).onConflict(PROJECT.ID).doUpdate().set(record)
         ).toList()).execute();
-    }
-    private InsertSetMoreStep<ProjectRecord> insert(ProjectRecord record) {
-        return dsl.insertInto(PROJECT)
-                .set(PROJECT.NAME, record.getName())
-                .set(PROJECT.DESCRIPTION, record.getDescription())
-                .set(PROJECT.DOMAIN, record.getDomain());
-    }
-    private UpdateConditionStep<ProjectRecord> update(ProjectRecord record) {
-        return dsl.update(PROJECT)
-                .set(PROJECT.NAME, record.getName())
-                .set(PROJECT.DESCRIPTION, record.getDescription())
-                .set(PROJECT.DOMAIN, record.getDomain())
-                .where(PROJECT.ID.eq(record.getId()));
-
     }
 
 }

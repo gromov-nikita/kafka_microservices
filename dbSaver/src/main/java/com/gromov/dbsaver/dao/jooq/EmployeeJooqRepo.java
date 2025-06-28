@@ -22,21 +22,9 @@ public class EmployeeJooqRepo {
 
     public void saveOrUpdate(List<EmployeeRecord> recordGroup) {
         dsl.batch(StreamEx.of(recordGroup).map(
-                record -> Objects.isNull(record.getId()) ? insert(record) : update(record)
+                record -> dsl.insertInto(EMPLOYEE).set(record).onConflict(EMPLOYEE.ID).doUpdate().set(record)
         ).toList()).execute();
     }
-    private InsertSetMoreStep<EmployeeRecord> insert(EmployeeRecord record) {
-        return dsl.insertInto(EMPLOYEE)
-                .set(EMPLOYEE.NAME, record.getName())
-                .set(EMPLOYEE.MAIL, record.getMail())
-                .set(EMPLOYEE.START_WORK_DATE, record.getStartWorkDate());
-    }
-    private UpdateConditionStep<EmployeeRecord> update(EmployeeRecord record) {
-        return dsl.update(EMPLOYEE)
-                .set(EMPLOYEE.NAME, record.getName())
-                .set(EMPLOYEE.MAIL, record.getMail())
-                .set(EMPLOYEE.START_WORK_DATE, record.getStartWorkDate())
-                .where(EMPLOYEE.ID.eq(record.getId()));
-    }
+
 
 }
