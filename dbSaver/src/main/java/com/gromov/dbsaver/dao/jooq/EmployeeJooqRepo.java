@@ -1,6 +1,6 @@
 package com.gromov.dbsaver.dao.jooq;
 
-import com.example.jooq.generated.tables.records.EmployeeRecord;
+import generated.tables.records.EmployeeRecord;
 import lombok.RequiredArgsConstructor;
 import one.util.streamex.StreamEx;
 import org.jooq.DSLContext;
@@ -11,7 +11,7 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 import java.util.Objects;
 
-import static com.example.jooq.generated.tables.Employee.EMPLOYEE;
+import static generated.tables.Employee.EMPLOYEE;
 
 @Repository
 @RequiredArgsConstructor

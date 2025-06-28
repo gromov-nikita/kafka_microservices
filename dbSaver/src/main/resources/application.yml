@@ -8,6 +8,15 @@ spring:
     driver-class-name: org.postgresql.Driver
   jooq:
     sql-dialect: POSTGRES
+    database:
+      name: org.jooq.meta.postgres.PostgresDatabase
+      input-schema: public
+      includes: .*
+    generator:
+      name: org.jooq.codegen.DefaultGenerator
+      target:
+        package: generated
+        directory: target/generated-sources/jooq
   jpa:
     hibernate:
       ddl-auto: validate

@@ -1,6 +1,6 @@
 package com.gromov.dbsaver.service.dao.record;
 
-import com.example.jooq.generated.tables.records.ProjectRecord;
+import generated.tables.records.ProjectRecord;
 import com.gromov.dbsaver.dao.jooq.ProjectJooqRepo;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -18,3 +18,5 @@ public class ProjectRecordService {
     }
 
 }
+
+

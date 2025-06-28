@@ -1,6 +1,6 @@
 package com.gromov.dbsaver.service.dao.record;
 
-import com.example.jooq.generated.tables.records.AssignmentRecord;
+import generated.tables.records.AssignmentRecord;
 import com.gromov.dbsaver.dao.jooq.AssignmentJooqRepo;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -19,3 +19,5 @@ public class AssignmentRecordService {
     }
 
 }
+
+

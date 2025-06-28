@@ -31,12 +31,23 @@ public class JooqGenerator implements CommandLineRunner {
     @Value("${spring.datasource.driver-class-name}")
     private String JDBC_DRIVER;
 
-    private static final String DATABASE_NAME = "org.jooq.meta.postgres.PostgresDatabase";
-    private static final String INPUT_SCHEMA = "public";
-    private static final String INCLUDES = ".*";
-    private static final String GENERATOR_NAME = "org.jooq.codegen.DefaultGenerator";
-    private static final String TARGET_PACKAGE = "com.example.jooq.generated";
-    private static final String TARGET_DIRECTORY = "target/generated-sources/jooq";
+    @Value("${spring.jooq.database.name}")
+    private String databaseName;
+
+    @Value("${spring.jooq.database.input-schema}")
+    private String inputSchema;
+
+    @Value("${spring.jooq.database.includes}")
+    private String includes;
+
+    @Value("${spring.jooq.generator.name}")
+    private String generatorName;
+
+    @Value("${spring.jooq.generator.target.package}")
+    private String targetPackage;
+
+    @Value("${spring.jooq.generator.target.directory}")
+    private String targetDirectory;
 
     @Override
     public void run(String... args) throws Exception {
@@ -54,20 +65,20 @@ public class JooqGenerator implements CommandLineRunner {
     }
     private Database getDatabase() {
         return new Database()
-                .withName(DATABASE_NAME)
-                .withInputSchema(INPUT_SCHEMA)
-                .withIncludes(INCLUDES);
+                .withName(databaseName)
+                .withInputSchema(inputSchema)
+                .withIncludes(includes);
     }
     private Generator getGenerator(Database database) {
         return new Generator()
-                .withName(GENERATOR_NAME)
+                .withName(generatorName)
                 .withDatabase(database)
                 .withTarget(getTarget());
     }
     private Target getTarget() {
         return new Target()
-                .withPackageName(TARGET_PACKAGE)
-                .withDirectory(TARGET_DIRECTORY);
+                .withPackageName(targetPackage)
+                .withDirectory(targetDirectory);
     }
     private Configuration getConfiguration(Jdbc jdbc, Generator generator) {
         return new Configuration()

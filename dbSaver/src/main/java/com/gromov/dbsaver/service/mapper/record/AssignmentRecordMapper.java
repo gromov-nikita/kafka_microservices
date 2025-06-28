@@ -1,6 +1,6 @@
 package com.gromov.dbsaver.service.mapper.record;
 
-import com.example.jooq.generated.tables.records.AssignmentRecord;
+import generated.tables.records.AssignmentRecord;
 import com.gromov.dbsaver.dto.AssignmentDto;
 import lombok.RequiredArgsConstructor;
 import one.util.streamex.StreamEx;
@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
 
 import java.util.List;
 
-import static com.example.jooq.generated.tables.Assignment.ASSIGNMENT;
+import static generated.tables.Assignment.ASSIGNMENT;
 
 @Component
 @RequiredArgsConstructor

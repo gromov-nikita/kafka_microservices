@@ -1,8 +1,8 @@
 package com.gromov.dbsaver.service.mapper.record;
 
-import com.example.jooq.generated.enums.Domain;
-import com.example.jooq.generated.tables.records.ProjectRecord;
 import com.gromov.dbsaver.dto.ProjectDto;
+import generated.enums.Domain;
+import generated.tables.records.ProjectRecord;
 import lombok.RequiredArgsConstructor;
 import one.util.streamex.StreamEx;
 import org.jooq.DSLContext;
@@ -10,7 +10,7 @@ import org.springframework.stereotype.Component;
 
 import java.util.List;
 
-import static com.example.jooq.generated.tables.Project.PROJECT;
+import static generated.tables.Project.PROJECT;
 
 @Component
 @RequiredArgsConstructor
@@ -29,3 +29,5 @@ public class ProjectRecordMapper {
     }
 
 }
+
+

@@ -1,13 +1,13 @@
 package com.gromov.dbsaver.dao.jooq;
 
-import com.example.jooq.generated.tables.records.AssignmentRecord;
+import generated.tables.records.AssignmentRecord;
 import lombok.RequiredArgsConstructor;
 import one.util.streamex.StreamEx;
 import org.jooq.DSLContext;
 import org.jooq.InsertSetMoreStep;
 import org.jooq.UpdateConditionStep;
 import org.springframework.stereotype.Repository;
-import static com.example.jooq.generated.tables.Assignment.ASSIGNMENT;
+import static generated.tables.Assignment.ASSIGNMENT;
 
 import java.util.List;
 import java.util.Objects;
