@@ -1,31 +1,29 @@
 package com.gromov.dbsaver.service.mapper.record;
 
-import generated.tables.records.EmployeeRecord;
 import com.gromov.dbsaver.dto.EmployeeDto;
-import lombok.RequiredArgsConstructor;
-import one.util.streamex.StreamEx;
-import org.jooq.DSLContext;
-import org.springframework.stereotype.Component;
+import generated.tables.records.EmployeeRecord;
+import org.mapstruct.AfterMapping;
+import org.mapstruct.Mapper;
+import org.mapstruct.MappingTarget;
 
 import java.util.List;
+import java.util.Objects;
 
-import static generated.tables.Employee.EMPLOYEE;
+import static generated.Tables.EMPLOYEE;
 
-@Component
-@RequiredArgsConstructor
-public class EmployeeRecordMapper {
+@Mapper(componentModel = "spring")
+public interface EmployeeRecordMapper {
 
-    public EmployeeRecord toRecord(EmployeeDto dto) {
-        return new EmployeeRecord(
-                dto.id(),
-                dto.name(),
-                dto.mail(),
-                dto.startWorkDate()
-        );
+    EmployeeDto toDto(EmployeeRecord record);
 
+    List<EmployeeDto> toDto(List<EmployeeRecord> recordGroup);
+
+    EmployeeRecord toRecord(EmployeeDto dto);
+
+    List<EmployeeRecord> toRecord(List<EmployeeDto> dtoGroup);
+
+    @AfterMapping
+    default void afterMapping(@MappingTarget EmployeeRecord record) {
+        if(Objects.isNull(record.getId())) record.changed(EMPLOYEE.ID,false);
     }
-    public List<EmployeeRecord> toRecord(List<EmployeeDto> dto) {
-        return StreamEx.of(dto).map(this::toRecord).toList();
-    }
-
 }

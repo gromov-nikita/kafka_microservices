@@ -1,30 +1,35 @@
 package com.gromov.dbsaver.service.mapper.record;
 
-import generated.tables.records.AssignmentRecord;
 import com.gromov.dbsaver.dto.AssignmentDto;
-import lombok.RequiredArgsConstructor;
-import one.util.streamex.StreamEx;
-import org.jooq.DSLContext;
-import org.springframework.stereotype.Component;
+import generated.tables.Assignment;
+import generated.tables.records.AssignmentRecord;
+import org.jooq.Attachable;
+import org.jooq.ContextConverter;
+import org.jooq.ConverterContext;
+import org.jooq.Field;
+import org.mapstruct.AfterMapping;
+import org.mapstruct.Mapper;
+import org.mapstruct.MappingTarget;
 
 import java.util.List;
+import java.util.Objects;
 
-import static generated.tables.Assignment.ASSIGNMENT;
+import static generated.Tables.ASSIGNMENT;
 
-@Component
-@RequiredArgsConstructor
-public class AssignmentRecordMapper {
+@Mapper(componentModel = "spring")
+public interface AssignmentRecordMapper {
 
-    public AssignmentRecord toRecord(AssignmentDto dto) {
-        return new AssignmentRecord(
-                dto.id(),
-                dto.startDate(),
-                dto.endDate(),
-                dto.employeeId(),
-                dto.projectId()
-        );
+    AssignmentDto toDto(AssignmentRecord record);
+
+    List<AssignmentDto> toDto(List<AssignmentRecord> recordGroup);
+
+    AssignmentRecord toRecord(AssignmentDto dto);
+
+    List<AssignmentRecord> toRecord(List<AssignmentDto> dtoGroup);
+
+    @AfterMapping
+    default void afterMapping(@MappingTarget AssignmentRecord record) {
+        if(Objects.isNull(record.getId())) record.changed(ASSIGNMENT.ID,false);
     }
-    public List<AssignmentRecord> toRecord(List<AssignmentDto> dto) {
-        return StreamEx.of(dto).map(this::toRecord).toList();
-    }
+
 }

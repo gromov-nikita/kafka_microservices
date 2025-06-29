@@ -1,33 +1,30 @@
 package com.gromov.dbsaver.service.mapper.record;
 
 import com.gromov.dbsaver.dto.ProjectDto;
-import generated.enums.Domain;
 import generated.tables.records.ProjectRecord;
-import lombok.RequiredArgsConstructor;
-import one.util.streamex.StreamEx;
-import org.jooq.DSLContext;
-import org.springframework.stereotype.Component;
+import org.mapstruct.AfterMapping;
+import org.mapstruct.Mapper;
+import org.mapstruct.MappingTarget;
 
 import java.util.List;
+import java.util.Objects;
 
-import static generated.tables.Project.PROJECT;
+import static generated.Tables.PROJECT;
 
-@Component
-@RequiredArgsConstructor
-public class ProjectRecordMapper {
+@Mapper(componentModel = "spring")
+public interface ProjectRecordMapper {
 
-    public ProjectRecord toRecord(ProjectDto dto) {
-        return new ProjectRecord(
-                dto.id(),
-                dto.name(),
-                dto.description(),
-                Domain.lookupLiteral(dto.domain())
-        );
-    }
-    public List<ProjectRecord> toRecord(List<ProjectDto> dto) {
-        return StreamEx.of(dto).map(this::toRecord).toList();
+    ProjectDto toDto(ProjectRecord record);
+
+    List<ProjectDto> toDto(List<ProjectRecord> recordGroup);
+
+    ProjectRecord toRecord(ProjectDto dto);
+
+    List<ProjectRecord> toRecord(List<ProjectDto> dtoGroup);
+
+    @AfterMapping
+    default void afterMapping(@MappingTarget ProjectRecord record) {
+        if(Objects.isNull(record.getId())) record.changed(PROJECT.ID,false);
     }
 
 }
-
-
