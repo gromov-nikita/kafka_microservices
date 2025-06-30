@@ -3,18 +3,14 @@ package com.gromov.dbsaver.service.kafka;
 import com.gromov.dbsaver.dto.AssignmentDto;
 import com.gromov.dbsaver.dto.EmployeeDto;
 import com.gromov.dbsaver.dto.ProjectDto;
-import com.gromov.dbsaver.service.dao.entity.AssignmentEntityService;
-import com.gromov.dbsaver.service.dao.entity.EmployeeEntityService;
-import com.gromov.dbsaver.service.dao.entity.ProjectEntityService;
 import com.gromov.dbsaver.service.dao.record.AssignmentRecordService;
 import com.gromov.dbsaver.service.dao.record.EmployeeRecordService;
 import com.gromov.dbsaver.service.dao.record.ProjectRecordService;
 import com.gromov.dbsaver.service.grpc.GrpcNotificationService;
 import com.gromov.dbsaver.service.json.JsonParser;
-import com.gromov.dbsaver.service.mapper.entity.AssignmentEntityMapper;
-import com.gromov.dbsaver.service.mapper.record.AssignmentRecordMapper;
-import com.gromov.dbsaver.service.mapper.record.EmployeeRecordMapper;
-import com.gromov.dbsaver.service.mapper.record.ProjectRecordMapper;
+import com.gromov.dbsaver.service.mapper.AssignmentMapper;
+import com.gromov.dbsaver.service.mapper.EmployeeMapper;
+import com.gromov.dbsaver.service.mapper.ProjectMapper;
 import com.gromov.dbsaver.service.validator.AssignmentDtoValidator;
 import com.gromov.dbsaver.service.validator.EmployeeDtoValidator;
 import jakarta.transaction.Transactional;
@@ -36,11 +32,11 @@ public class KafkaConsumerListener {
 
     private final ProjectRecordService projectRecordService;
 
-    private final AssignmentRecordMapper assignmentRecordMapper;
+    private final AssignmentMapper assignmentMapper;
 
-    private final EmployeeRecordMapper employeeRecordMapper;
+    private final EmployeeMapper employeeMapper;
 
-    private final ProjectRecordMapper projectRecordMapper;
+    private final ProjectMapper projectMapper;
 
     private final AssignmentDtoValidator assignmentDtoValidator;
 
@@ -61,7 +57,7 @@ public class KafkaConsumerListener {
     public void consumeEmployee(String message) {
         List<EmployeeDto> dtoGroup = jsonParser.parseJson(message, EmployeeDto.class);
         if (employeeDtoValidator.isValid(dtoGroup)) {
-            employeeRecordService.saveAll(employeeRecordMapper.toRecord(dtoGroup));
+            employeeRecordService.saveAll(employeeMapper.toRecord(dtoGroup));
         }
         else {
             grpcNotificationService.notValidNotify(EMPLOYEE_NOT_VALID_MESSAGE);
@@ -73,7 +69,7 @@ public class KafkaConsumerListener {
     public void consumeAssignment(String message) {
         List<AssignmentDto> dtoGroup = jsonParser.parseJson(message, AssignmentDto.class);
         if(assignmentDtoValidator.isValid(dtoGroup)) {
-            assignmentRecordService.saveAll(assignmentRecordMapper.toRecord(dtoGroup));
+            assignmentRecordService.saveAll(assignmentMapper.toRecord(dtoGroup));
         }
         else {
             grpcNotificationService.notValidNotify(ASSIGNMENT_NOT_VALID_MESSAGE);
@@ -82,7 +78,7 @@ public class KafkaConsumerListener {
 
     @KafkaListener(topics = "${spring.kafka.topic-name.project}", groupId = "${spring.kafka.consumer.group-id}")
     public void consumeProject(String message) {
-        projectRecordService.saveAll(projectRecordMapper.toRecord(jsonParser.parseJson(message, ProjectDto.class)));
+        projectRecordService.saveAll(projectMapper.toRecord(jsonParser.parseJson(message, ProjectDto.class)));
     }
 
 }

@@ -1,21 +1,13 @@
-package com.gromov.dbsaver.service.mapper.record;
+package com.gromov.dbsaver.service.mapper;
 
 import com.gromov.dbsaver.dto.AssignmentDto;
-import generated.tables.Assignment;
 import generated.tables.records.AssignmentRecord;
-import org.jooq.Attachable;
-import org.jooq.ContextConverter;
-import org.jooq.ConverterContext;
-import org.jooq.Field;
 import org.mapstruct.*;
 
 import java.util.List;
-import java.util.Objects;
-
-import static generated.Tables.ASSIGNMENT;
 
 @Mapper(componentModel = "spring", nullValueCheckStrategy = NullValueCheckStrategy.ALWAYS)
-public interface AssignmentRecordMapper {
+public interface AssignmentMapper {
 
     AssignmentDto toDto(AssignmentRecord record);
 
