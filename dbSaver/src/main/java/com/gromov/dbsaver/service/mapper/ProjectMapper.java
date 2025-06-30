@@ -4,10 +4,15 @@ import com.gromov.dbsaver.dto.ProjectDto;
 import generated.tables.records.ProjectRecord;
 import org.mapstruct.Mapper;
 import org.mapstruct.NullValueCheckStrategy;
+import org.mapstruct.ReportingPolicy;
 
 import java.util.List;
 
-@Mapper(componentModel = "spring", nullValueCheckStrategy = NullValueCheckStrategy.ALWAYS)
+@Mapper(
+        componentModel = "spring",
+        nullValueCheckStrategy = NullValueCheckStrategy.ALWAYS,
+        unmappedTargetPolicy = ReportingPolicy.IGNORE
+)
 public interface ProjectMapper {
 
     ProjectDto toDto(ProjectRecord record);

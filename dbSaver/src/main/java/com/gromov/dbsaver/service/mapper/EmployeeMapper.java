@@ -4,10 +4,15 @@ import com.gromov.dbsaver.dto.EmployeeDto;
 import generated.tables.records.EmployeeRecord;
 import org.mapstruct.Mapper;
 import org.mapstruct.NullValueCheckStrategy;
+import org.mapstruct.ReportingPolicy;
 
 import java.util.List;
 
-@Mapper(componentModel = "spring", nullValueCheckStrategy = NullValueCheckStrategy.ALWAYS)
+@Mapper(
+        componentModel = "spring",
+        nullValueCheckStrategy = NullValueCheckStrategy.ALWAYS,
+        unmappedTargetPolicy = ReportingPolicy.IGNORE
+)
 public interface EmployeeMapper {
 
     EmployeeDto toDto(EmployeeRecord record);
