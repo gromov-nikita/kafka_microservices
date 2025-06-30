@@ -9,7 +9,7 @@ import java.util.List;
 @Mapper(
         componentModel = "spring",
         nullValueCheckStrategy = NullValueCheckStrategy.ALWAYS,
-        unmappedTargetPolicy = ReportingPolicy.IGNORE
+        unmappedTargetPolicy = ReportingPolicy.ERROR
 )
 public interface AssignmentMapper {
 
