@@ -5,13 +5,14 @@ import generated.tables.records.EmployeeRecord;
 import org.mapstruct.AfterMapping;
 import org.mapstruct.Mapper;
 import org.mapstruct.MappingTarget;
+import org.mapstruct.NullValueCheckStrategy;
 
 import java.util.List;
 import java.util.Objects;
 
 import static generated.Tables.EMPLOYEE;
 
-@Mapper(componentModel = "spring")
+@Mapper(componentModel = "spring", nullValueCheckStrategy = NullValueCheckStrategy.ALWAYS)
 public interface EmployeeRecordMapper {
 
     EmployeeDto toDto(EmployeeRecord record);
@@ -22,8 +23,4 @@ public interface EmployeeRecordMapper {
 
     List<EmployeeRecord> toRecord(List<EmployeeDto> dtoGroup);
 
-    @AfterMapping
-    default void afterMapping(@MappingTarget EmployeeRecord record) {
-        if(Objects.isNull(record.getId())) record.changed(EMPLOYEE.ID,false);
-    }
 }

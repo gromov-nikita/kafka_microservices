@@ -7,16 +7,14 @@ import org.jooq.Attachable;
 import org.jooq.ContextConverter;
 import org.jooq.ConverterContext;
 import org.jooq.Field;
-import org.mapstruct.AfterMapping;
-import org.mapstruct.Mapper;
-import org.mapstruct.MappingTarget;
+import org.mapstruct.*;
 
 import java.util.List;
 import java.util.Objects;
 
 import static generated.Tables.ASSIGNMENT;
 
-@Mapper(componentModel = "spring")
+@Mapper(componentModel = "spring", nullValueCheckStrategy = NullValueCheckStrategy.ALWAYS)
 public interface AssignmentRecordMapper {
 
     AssignmentDto toDto(AssignmentRecord record);
@@ -26,10 +24,5 @@ public interface AssignmentRecordMapper {
     AssignmentRecord toRecord(AssignmentDto dto);
 
     List<AssignmentRecord> toRecord(List<AssignmentDto> dtoGroup);
-
-    @AfterMapping
-    default void afterMapping(@MappingTarget AssignmentRecord record) {
-        if(Objects.isNull(record.getId())) record.changed(ASSIGNMENT.ID,false);
-    }
 
 }

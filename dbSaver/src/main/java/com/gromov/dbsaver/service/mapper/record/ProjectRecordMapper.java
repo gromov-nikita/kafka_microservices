@@ -5,13 +5,14 @@ import generated.tables.records.ProjectRecord;
 import org.mapstruct.AfterMapping;
 import org.mapstruct.Mapper;
 import org.mapstruct.MappingTarget;
+import org.mapstruct.NullValueCheckStrategy;
 
 import java.util.List;
 import java.util.Objects;
 
 import static generated.Tables.PROJECT;
 
-@Mapper(componentModel = "spring")
+@Mapper(componentModel = "spring", nullValueCheckStrategy = NullValueCheckStrategy.ALWAYS)
 public interface ProjectRecordMapper {
 
     ProjectDto toDto(ProjectRecord record);
@@ -21,10 +22,5 @@ public interface ProjectRecordMapper {
     ProjectRecord toRecord(ProjectDto dto);
 
     List<ProjectRecord> toRecord(List<ProjectDto> dtoGroup);
-
-    @AfterMapping
-    default void afterMapping(@MappingTarget ProjectRecord record) {
-        if(Objects.isNull(record.getId())) record.changed(PROJECT.ID,false);
-    }
 
 }
