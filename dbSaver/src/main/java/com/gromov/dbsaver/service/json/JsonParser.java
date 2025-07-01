@@ -12,7 +12,7 @@ public class JsonParser {
 
     private static final ObjectMapper objectMapper = new ObjectMapper();
 
-    public <T> List<T> parseJson(String message,Class<T> clazz) {
+    public <T> List<T>parseJson(String message,Class<T> clazz) {
         try {
             return objectMapper.readValue(message, objectMapper.getTypeFactory().constructCollectionType(List.class, clazz));
         } catch (JsonProcessingException e) {
