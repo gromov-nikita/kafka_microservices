@@ -23,3 +23,17 @@ grpc:
   server:
     port: 9091
     address: "*"
+otel:
+  traces:
+    exporter: otlp
+  exporter:
+    otlp:
+      endpoint: http://localhost:4318
+      protocol: http/protobuf
+  resource:
+    attributes:
+      service.name: csvReader
+  logs:
+    exporter: none
+  metrics:
+    exporter: none
